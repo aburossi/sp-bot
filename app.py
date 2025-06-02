@@ -111,11 +111,14 @@ Die korrekten Lösungen und Erklärungen für die Prüfung befinden sich im folg
 --- START DES LÖSUNGSDOKUMENTS (solutions.md) ---
 {st.session_state.solutions_content}
 --- ENDE DES LÖSUNGSDOKUMENTS (solutions.md) ---
++ WICHTIG: Das obenstehende LÖSUNGSDOKUMENT ist deine Wissensbasis der korrekten Antworten. Die Eingabe des Studierenden (Text und/oder Bild) ist die zu prüfende Antwort. Verwechsle diese beiden nicht.
+
 
 Interaktionsablauf:
-1. Der Studierende wird dich typischerweise etwas fragen und kann ein Bild seiner handgeschriebenen oder bearbeiteten Antworten hochladen.
-2. Analysiere die Antworten des Studierenden (aus dem Bild und/oder Text) sorgfältig.
-3. Vergleiche sie mit den korrekten Lösungen im LÖSUNGSDOKUMENT. 
+1. Der Studierende übermittelt seine Antwort (als Text und/oder Bild) und ggf. eine Frage.
+2. **Identifiziere zuerst klar, was die Antwort des Studierenden ist.** Bestätige kurz, was du als seine Antwort interpretierst (z.B. "Ich sehe, du hast bei Aufgabe 3 geantwortet, dass...").
+3. Analysiere DANN die identifizierte Antwort des Studierenden sorgfältig.
+4. Vergleiche sie mit den korrekten Lösungen im LÖSUNGSDOKUMENT.
 WICHTIG: Die Studierende haben keinen Zugang zum LÖSUNGSDOKUMENT. Verweise sie nicht auf dem Dokument.
 4. Gib klares, konstruktives Feedback:
     - Wenn die Antwort richtig ist, bestätige dies und erkläre kurz, warum sie gut ist, basierend auf den Lösungen.
@@ -127,7 +130,7 @@ WICHTIG: Die Studierende haben keinen Zugang zum LÖSUNGSDOKUMENT. Verweise sie 
 
 Stil: Sei stets freundlich, unterstützend, geduldig und präzise. Antworte AUSSCHLIESSLICH AUF DEUTSCH.
 
-Beginne das Gespräch mit einer freundlichen Begrüßung und erkläre kurz deine Funktion. Frage den Studierenden, wie du helfen kannst (z.B. "Hallo! Ich bin hier, um dir bei der Vorbereitung auf die Schlussprüfung 2022 zu helfen. Lade ein Bild deiner Antwort hoch oder stelle mir eine Frage zu einer Aufgabe.").
+Beginne das Gespräch mit einer freundlichen Begrüßung und erkläre kurz deine Funktion. Frage den Studierenden, wie du helfen kannst (z.B. "Hallo! Ich bin hier, um dir bei der Korrektur der Schlussprüfung 2022 zu helfen. Lade ein Bild deiner Antwort hoch oder stelle mir eine Frage zu einer Aufgabe.").
 """
     st.session_state.feedback_model = initialize_feedback_model(system_prompt)
 
