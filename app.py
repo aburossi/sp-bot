@@ -31,9 +31,9 @@ except Exception as e:
     st.error(f"Fehler bei der Konfiguration von Google Generative AI: {e}")
     st.stop()
 
-# Modellkonfiguration (angepasst für multimodales Modell)
+# Modellkonfiguration
 generation_config = {
-    "temperature": 0.5, # Slightly higher for more conversational feedback
+    "temperature": 0.5,
     "top_p": 0.95,
     "top_k": 64,
     "max_output_tokens": 8192,
@@ -58,9 +58,8 @@ def load_solutions_content(file_path: str = "solutions.md") -> str | None:
 def initialize_feedback_model(system_prompt: str) -> genai.GenerativeModel | None:
     """Initialisiert das GenerativeModel mit einer Systemanweisung."""
     try:
-        # Wichtig: Ein multimodales Modell verwenden, das Bilder verarbeiten kann
         model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash-latest", # Oder gemini-1.5-pro-latest
+            model_name="gemini-1.5-flash-latest",
             generation_config=generation_config,
             system_instruction=system_prompt,
         )
@@ -73,9 +72,10 @@ def initialize_feedback_model(system_prompt: str) -> genai.GenerativeModel | Non
 def reset_chat_state():
     """Löscht den Chatverlauf und verwandte Sitzungszustandsvariablen."""
     st.session_state.messages = []
-    st.session_state.feedback_model = None # Benennt learnlm_model um
+    st.session_state.feedback_model = None
     st.session_state.chat_session = None
-    # st.session_state.solutions_content bleibt bestehen, da es nur einmal geladen wird
+    # Reset uploader key counter as well if a full chat reset is desired
+    # st.session_state.uploader_key_counter = 0 # Optional: depends on desired reset behavior
     print("Chat-Status zurückgesetzt.")
 
 # --- Streamlit App UI und Logik ---
@@ -88,10 +88,13 @@ if "messages" not in st.session_state:
     st.session_state.messages = []
 if "solutions_content" not in st.session_state:
     st.session_state.solutions_content = load_solutions_content()
-if "feedback_model" not in st.session_state: # Umbenannt von learnlm_model
+if "feedback_model" not in st.session_state:
     st.session_state.feedback_model = None
 if "chat_session" not in st.session_state:
     st.session_state.chat_session = None
+# Initialize session state for the uploader key counter
+if "uploader_key_counter" not in st.session_state:
+    st.session_state.uploader_key_counter = 0 # MODIFIED/ADDED
 
 # --- Lösungsdokument laden und Modell initialisieren ---
 if not st.session_state.solutions_content:
@@ -132,14 +135,10 @@ Beginne das Gespräch mit einer freundlichen Begrüßung und erkläre kurz deine
             st.session_state.chat_session = st.session_state.feedback_model.start_chat(history=[])
             st.success("Feedback-Assistent ist bereit!")
 
-            # Anfängliche Begrüßung vom Bot holen, basierend auf dem System Prompt
-            if not st.session_state.messages: # Nur wenn Chat leer ist
+            if not st.session_state.messages:
                 try:
-                    # Eine leere oder generische erste Nutzernachricht, um die Begrüßung des Bots auszulösen
-                    initial_user_message = "Hallo"
+                    initial_user_message = "Hallo" # A simple prompt to trigger the bot's intro
                     initial_response = st.session_state.chat_session.send_message(initial_user_message)
-                    # Die erste "Hallo" Nachricht des Nutzers nicht unbedingt anzeigen,
-                    # direkt die Antwort des Bots als erste Nachricht zeigen.
                     st.session_state.messages.append({"role": "assistant", "content": initial_response.text})
                 except Exception as e:
                     st.warning(f"Konnte keine anfängliche Begrüßung vom Assistenten erhalten: {e}")
@@ -148,10 +147,9 @@ Beginne das Gespräch mit einer freundlichen Begrüßung und erkläre kurz deine
 
         except Exception as e:
             st.error(f"Fehler beim Starten der Chat-Sitzung: {e}")
-            reset_chat_state() # Vollständiger Reset, falls Start fehlschlägt
+            reset_chat_state()
     else:
         st.error("Initialisierung des Feedback-Modells fehlgeschlagen.")
-        # solutions_content bleibt, da es nicht vom Chat abhängt
 
 # --- Chat-Verlauf anzeigen ---
 st.markdown("---")
@@ -160,8 +158,11 @@ st.subheader(f"Chat zum Feedback der Schlussprüfung 2022")
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         if "image" in message and message["image"] is not None:
+            # When displaying, we use the image bytes/object stored.
+            # The `uploaded_image` variable from uploader might be None after reset,
+            # but `message["image"]` holds what was captured at the time of sending.
             st.image(message["image"], width=300)
-        if "content" in message: # Text content
+        if "content" in message:
              st.markdown(message["content"])
 
 
@@ -170,77 +171,80 @@ user_prompt = st.chat_input(
     "Stelle eine Frage oder beschreibe deine Antwort...",
     disabled=(not st.session_state.chat_session)
 )
-uploaded_image = st.file_uploader(
+# Use the dynamic key for the file uploader
+uploaded_image_file = st.file_uploader( # Renamed variable for clarity
     "Lade ein Bild deiner Antwort hoch (optional)",
     type=["png", "jpg", "jpeg", "webp"],
-    key="file_uploader",
+    key=f"file_uploader_{st.session_state.uploader_key_counter}", # MODIFIED
     disabled=(not st.session_state.chat_session)
 )
 
-if user_prompt or (uploaded_image and st.session_state.chat_session): # Auch nur Bild erlaubt Interaktion
+if user_prompt or (uploaded_image_file and st.session_state.chat_session):
     if not st.session_state.chat_session:
         st.error("Chat-Sitzung ist nicht aktiv. Bitte laden Sie die Seite neu.")
         st.stop()
 
     user_message_parts = []
-    user_display_message = {"role": "user"}
+    # Store the raw UploadedFile object for display if it's used
+    user_display_image_ref = None
 
     if user_prompt:
         user_message_parts.append(user_prompt)
-        user_display_message["content"] = user_prompt
 
-    processed_image = None
-    if uploaded_image is not None:
+    pil_image_for_api = None # Store PIL image separately for API
+    if uploaded_image_file is not None:
         try:
-            image = Image.open(uploaded_image)
-            # Konvertiere RGBA zu RGB falls nötig (manche PNGs)
-            if image.mode == 'RGBA':
-                image = image.convert('RGB')
-            user_message_parts.append(image) # Das SDK kann PIL Images direkt verarbeiten
-            user_display_message["image"] = uploaded_image # Zum Anzeigen im Chat
-            st.success(f"Bild '{uploaded_image.name}' hochgeladen und wird gesendet.")
+            pil_image_for_api = Image.open(uploaded_image_file)
+            if pil_image_for_api.mode == 'RGBA':
+                pil_image_for_api = pil_image_for_api.convert('RGB')
+            user_message_parts.append(pil_image_for_api)
+            user_display_image_ref = uploaded_image_file # Use the raw file for display
+            # Don't show success message here yet, wait for actual processing.
         except Exception as e:
             st.error(f"Fehler beim Verarbeiten des Bildes: {e}")
-            uploaded_image = None # Verhindere Senden bei Fehler
+            # Do not proceed with this image if an error occurred during opening/conversion
+            pil_image_for_api = None
+            user_display_image_ref = None
 
 
-    # Nur fortfahren, wenn wir Text oder ein erfolgreich verarbeitetes Bild haben
-    if user_message_parts:
-        st.session_state.messages.append(user_display_message)
+    if user_message_parts: # Only proceed if there's text or a successfully processed image
+        # Construct the message for display history
+        current_user_message_for_history = {"role": "user"}
+        if user_prompt:
+            current_user_message_for_history["content"] = user_prompt
+        if user_display_image_ref: # If an image was successfully read for API
+            current_user_message_for_history["image"] = user_display_image_ref
+
+        st.session_state.messages.append(current_user_message_for_history)
+
         with st.chat_message("user"):
-            if "image" in user_display_message and user_display_message["image"] is not None:
-                st.image(user_display_message["image"], width=300)
-            if "content" in user_display_message:
-                 st.markdown(user_display_message["content"])
+            if user_display_image_ref:
+                st.image(user_display_image_ref, width=300)
+            if user_prompt:
+                 st.markdown(user_prompt)
 
         try:
             with st.spinner("Denke nach..."):
-                if not user_message_parts: # Fallback falls user_prompt leer war und Bild fehlgeschlagen
-                     if user_prompt: # Wenn nur Text da war, aber keine parts Liste
-                        response = st.session_state.chat_session.send_message(user_prompt)
-                     else: # Sollte nicht passieren, aber als Sicherheit
-                        raise ValueError("Keine Nachricht oder Bild zum Senden vorhanden.")
-                else:
-                    response = st.session_state.chat_session.send_message(user_message_parts)
-
+                response = st.session_state.chat_session.send_message(user_message_parts)
             assistant_response_text = response.text
             st.session_state.messages.append({"role": "assistant", "content": assistant_response_text})
-            # Clear the uploader after processing by rerunning the script
-            st.session_state.file_uploader_key = str(Path(uploaded_image.name if uploaded_image else "img").stem) + str(os.urandom(4))
 
+            # If an image was part of this successful transaction, increment counter to reset uploader
+            if uploaded_image_file is not None: # MODIFIED
+                st.session_state.uploader_key_counter += 1
 
         except Exception as e:
             st.error(f"Ein Fehler ist bei der Kommunikation mit dem Feedback-Modell aufgetreten: {e}")
             error_message_content = f"Entschuldigung, ich bin auf einen Fehler gestoßen: {e}"
             st.session_state.messages.append({"role": "assistant", "content": error_message_content})
+            # Also increment if an image was involved in the failed attempt
+            if uploaded_image_file is not None: # MODIFIED
+                 st.session_state.uploader_key_counter += 1
         
-        # Reset the uploader by rerunning. A bit of a hack for file_uploader.
-        # A more robust way would involve managing the uploader's state more directly if possible.
-        st.rerun()
+        st.rerun() # Rerun to reflect changes and reset uploader
 
-elif not st.session_state.messages and st.session_state.chat_session : # Initial state, Bot hasn't said anything
-     # This case is usually handled by the initial bot message logic after model init
+elif not st.session_state.messages and st.session_state.chat_session :
      pass
 elif not st.session_state.chat_session and st.session_state.solutions_content:
     st.info("Feedback Assistent wird initialisiert. Bitte warten...")
-    st.rerun() # Trigger re-initialization if model is not loaded but content is
+    # st.rerun() # Be cautious with reruns here to avoid loops during init itself.
