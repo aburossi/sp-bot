@@ -1,10 +1,5 @@
 # Geld \& Konsum
 
-Richtzeit: 5 Min.
-
-![img-1.jpeg](img-1.jpeg)
-
-  
 
 1. Bestellung
 
@@ -56,7 +51,7 @@ $\boxtimes$
 
   
 
-[seite: 5]
+[Lösungen seite: 5]
 
 # 3. Kaufvertrag
 
@@ -114,7 +109,7 @@ Der Krankenkasse wird ein Verlustschein ausgestellt.
 
   
 
-[seite: 6]
+[Lösungen seite: 6]
 
 # Sicherheit \& Solidarität
 
@@ -122,11 +117,6 @@ Der Krankenkasse wird ein Verlustschein ausgestellt.
 
 ## Richtzeit:10 Min.
 
-  
-
-![img-2.jpeg](img-2.jpeg)
-
-  
 
 ## 5. Begriffe
 
@@ -158,7 +148,6 @@ Die versicherte Person kann von einer Kasse zur anderen wechseln. D
 
 In der Police hält die Versicherung fest, dass sie für bestimmte Fälle keine Leistungen erbringt.
 
-  
 
 B
 
@@ -182,7 +171,7 @@ E
 
   
 
-[seite: 7]
+[Lösungen seite: 7]
 
 # 6. Abzüge Sozialversicherungen
 
@@ -199,8 +188,6 @@ $2 \times 1 / 2$ Punkt
   
 
 | Alters-, Hinterlassenen- und Invalidenversicherung | $\boxtimes$ |
-
-| :-- | :-- |
 
 | Krankentaggeldversicherung | $\square$ |
 
@@ -242,7 +229,7 @@ Betrag SFr. $\qquad$ 1'080.-
 
   
 
-[seite: 8]
+[Lösungen seite: 8]
 
 # 9. Selbstunfall
 
@@ -302,7 +289,7 @@ Motorfahrzeughaftpflichtversicherung
 
   
 
-[seite: 9]
+[Lösungen seite: 9]
 
 # Steuern
 
@@ -366,7 +353,7 @@ den Finanzausgleich zwischen finanziell ungleich starken Kantonen.
 
   
 
-[seite: 10]
+[Lösungen seite: 10]
 
 # 12. Indirekte Steuern
 
@@ -416,7 +403,7 @@ usw.
 
   
 
-[seite: 11]
+[Lösungen seite: 11]
 
 # Politik
 
@@ -510,7 +497,7 @@ Seite 10 von
 
   
 
-[seite: 12]
+[Lösungen seite: 12]
 
 # 16. Kompetenzen: Bund - Kanton
 
@@ -568,7 +555,7 @@ $6 x 1 / 2$ Punkt nur für ganze richtige Zeile
 
   
 
-[seite: 13]
+[Lösungen seite: 13]
 
 # 18. Parteien
 
@@ -602,7 +589,7 @@ Kontrolle der politischen Behörden. / Meinungsbildung (Beeinflussung).
 
   
 
-[seite: 14]
+[Lösungen seite: 14]
 
 # Wirtschaft
 
@@ -646,7 +633,7 @@ Florian hat sich nach der Ausbildung zum Coiffeur umschulen lassen und arbeitet 
 
   
 
-[seite: 15]
+[Lösungen seite: 15]
 
 # 21. Wirtschaftsform
 
@@ -712,7 +699,7 @@ Nennen Sie drei Auswirkungen für die Wirtschaft.
 
   
 
-[seite: 16]
+[Lösungen seite: 16]
 
 # 23. Preisentwicklung
 
@@ -768,7 +755,7 @@ Steuern
 
   
 
-[seite: 17]
+[Lösungen seite: 17]
 
 # Arbeitswelt
 
@@ -834,7 +821,7 @@ Wie lange dauert die Probezeit, wenn zwischen Arbeitnehmer und Arbeitgeber nicht
 
   
 
-[seite: 18]
+[Lösungen seite: 18]
 
 # 28. Überstunden
 
@@ -896,7 +883,7 @@ Gesetzesartikel: OR 335c
 
   
 
-[seite: 19]
+[Lösungen seite: 19]
 
 # 31. Arbeitszeugnis
 
@@ -942,7 +929,7 @@ Verzicht auf Kampfmassnahmen wie Streik, Sperre oder Aussperrung.
 
   
 
-[seite: 20]
+[Lösungen seite: 20]
 
 # Wohnen \& Lebensformen
 
@@ -986,7 +973,7 @@ Schlägt der Mieter beim vorzeitigen Auszug dem Vermieter keinen zumutbaren neue
 
   
 
-[seite: 21]
+[Lösungen seite: 21]
 
 # 34. Mietzinserhöhung
 
@@ -1042,7 +1029,7 @@ Kreuzen Sie die richtige Antwort an.
 
   
 
-[seite: 22]
+[Lösungen seite: 22]
 
 # 36. Konkubinat
 
@@ -1076,7 +1063,7 @@ $8 \times 1 / 2$ Punkt
 
   
 
-[seite: 23]
+[Lösungen seite: 23]
 
 # 37. Güterrechtliche Auseinandersetzung
 
@@ -1170,7 +1157,7 @@ Lösungsvorschlag:
 
   
 
-[seite: 24]
+[Lösungen seite: 24]
 
 # Sprache
 
@@ -1192,7 +1179,7 @@ Leider können Sie den geforderten Betrag nicht innerhalb der nächsten Tage auf
 
   
 
-[seite: 25]
+[Lösungen seite: 25]
 
 # Korrekturschlüssel:
 
@@ -1288,7 +1275,7 @@ Betreibungsregisterauszug
 
   
 
-[seite: 26]
+[Lösungen seite: 26]
 
 # 39. Banken-Latein
 
@@ -1338,7 +1325,7 @@ Mit der Kreditkarte kann man problemlos mehrere Tausend Franken ausgeben, die ma
 
   
 
-[seite: 27]
+[Lösungen seite: 27]
 
 # 40. Körpersprache
 
@@ -1350,7 +1337,7 @@ Sie sitzen beim Bewerbungsgespräch Ihrem künftigen Chef gegenüber. Natürlich
 
   
 
-[seite: 28]
+[Lösungen seite: 28]
 
 # 41. Ehe und Scheidung
 
@@ -1394,7 +1381,7 @@ Bei beiden Diagrammen handelt es sich um Balkendiagramme. Das erste zeigt die An
 
   
 
-[seite: 29]
+[Lösungen seite: 29]
 
 b) Vervollständigen Sie die Tabelle mit Hilfe der beiden Grafiken. Sie dürfen dafür den Taschenrechner benutzen.
 
@@ -1450,7 +1437,7 @@ $1 / 2$ Punkt Abzug
 
   
 
-[seite: 30]
+[Lösungen seite: 30]
 
 # 42. Karikatur
 
@@ -1504,7 +1491,7 @@ $1 / 2$ Punkt Abzug
 
   
 
-[seite: 31]
+[Lösungen seite: 31]
 
 b) Karikatur interpretieren
 
@@ -1580,7 +1567,7 @@ $1 / 2$ Punkt Abzug
 
   
 
-[seite: 32]
+[Lösungen seite: 32]
 
 # 43. Politische Rechte
 
@@ -1630,7 +1617,7 @@ Fehr betonte: Dort, wo das Stimmrechtsalter 16 eingeführt sei, liege die Stimmb
 
   
 
-[seite: 33]
+[Lösungen seite: 33]
 
 a) Wieso werden die Zürcher Stimmbürger über die Vorlage Stimmrechtsalter 16 an der Urne abstimmen müssen? Antworten in einem vollständigen Satz.
 
@@ -1660,7 +1647,7 @@ Tragen Sie sieben Argumente aus dem Artikel in die Tabelle ein: 7 Punkte
 
   
 
-[seite: 34]
+[Lösungen seite: 34]
 
 c) Wieso wird die Vorlage Stimmrechtsalter 16 mit der Einführung des Frauenstimmrechts verglichen? Begründen Sie in einem vollständigen Satz.
 
@@ -1718,7 +1705,7 @@ Es wimmelt von Fehlern aller Art
 
   
 
-[seite: 35]
+[Lösungen seite: 35]
 
 # 44. Zeichensetzung
 
@@ -1774,7 +1761,7 @@ Janosch Holzer
 
   
 
-[seite: 36]
+[Lösungen seite: 36]
 
 # 45. Fake News
 
